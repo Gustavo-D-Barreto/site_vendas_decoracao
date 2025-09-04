@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mix Variedades - Sua Casa, Seu Estilo</title>
+    <style>
+        /* --- Configurações Globais e Fontes --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        :root {
+            --cor-vermelho: #D91A2A;
+            --cor-vermelho-escuro: #BF1736;
+            --cor-fundo: #F8EFC9;
+            --cor-texto: #1B1C17;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+        }
+
+        h1, h2, h3 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        /* --- Cabeçalho e Navegação --- */
+        .header {
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+            padding: 15px 0;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            gap: 20px;
+        }
+
+        .logo {
+            font-family: 'Montserrat', sans-serif;
+            font-size: 1.8em;
+            font-weight: 700;
+            color: var(--cor-fundo);
+            text-decoration: none;
+            white-space: nowrap;
+        }
+        
+        .logo span {
+            color: var(--cor-vermelho);
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+            margin: 0;
+            padding: 0;
+        }
+
+        .nav-links a {
+            color: var(--cor-fundo);
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--cor-vermelho);
+        }
+        
+        /* --- Barra de Pesquisa --- */
+        .search-container {
+            display: flex;
+            width: 100%;
+            max-width: 400px;
+        }
+        
+        .search-container input {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #555;
+            border-radius: 5px 0 0 5px;
+            background-color: #333;
+            color: var(--cor-fundo);
+            font-size: 1em;
+            outline: none;
+        }
+        
+        .search-container button {
+            padding: 10px 15px;
+            border: none;
+            background-color: var(--cor-vermelho);
+            color: var(--cor-fundo);
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+            transition: background-color 0.3s ease;
+        }
+        
+        .search-container button:hover {
+            background-color: var(--cor-vermelho-escuro);
+        }
+
+
+        /* --- Banner Principal (Hero) --- */
+        .hero {
+            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=1558');
+            background-size: cover;
+            background-position: center;
+            color: #FFF; /* Texto branco puro para melhor contraste na imagem */
+            text-align: center;
+            padding: 100px 20px;
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .hero p {
+            font-size: 1.2em;
+            margin-bottom: 30px;
+        }
+
+        .cta-button {
+            background-color: var(--cor-vermelho);
+            color: var(--cor-fundo);
+            padding: 15px 30px;
+            text-decoration: none;
+            font-weight: bold;
+            border-radius: 5px;
+            transition: background-color 0.3s ease;
+        }
+
+        .cta-button:hover {
+            background-color: var(--cor-vermelho-escuro);
+        }
+        
+        /* --- Seção de Categorias --- */
+        .section-title {
+            text-align: center;
+            margin-top: 40px;
+            margin-bottom: 30px;
+            font-size: 2em;
+        }
+
+        .categories-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            text-align: center;
+        }
+
+        .category-card {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .category-card h3 {
+            margin-top: 10px;
+            color: var(--cor-texto);
+        }
+
+        /* --- Seção de Produtos Populares --- */
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        .product-card {
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            overflow: hidden;
+            text-align: center;
+            transition: box-shadow 0.3s ease;
+            position: relative; /* Necessário para posicionar o coração */
+        }
+
+        .product-card:hover {
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+
+        .product-image-container {
+            position: relative;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            display: block;
+        }
+
+        .favorite-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: none;
+            border: none;
+            font-size: 1.8em;
+            cursor: pointer;
+            color: var(--cor-texto);
+            transition: color 0.3s ease, transform 0.2s ease;
+        }
+        
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+
+        .favorite-btn.active {
+            color: var(--cor-vermelho);
+        }
+
+        .product-info {
+            padding: 20px;
+        }
+
+        .product-info h3 {
+            margin: 10px 0;
+            font-size: 1.2em;
+        }
+
+        .product-price {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: var(--cor-texto);
+            margin-bottom: 15px;
+        }
+        
+        .add-to-cart-btn {
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--cor-vermelho);
+        }
+        
+        /* --- Rodapé --- */
+        .footer {
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+            text-align: center;
+            padding: 40px 20px;
+            margin-top: 50px;
+        }
+
+        .footer p {
+            margin: 5px;
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="#" class="logo">Mix<span>Variedades</span></a>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar produtos...">
+                <button type="submit">🔍</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#">Início</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>Sua Casa, Seu Estilo</h1>
+            <p>Encontre os melhores itens de decoração e utensílios para o seu lar.</p>
+            <a href="#" class="cta-button">CONFIRA AS NOVIDADES</a>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">Navegue por Categorias</h2>
+            <div class="categories-grid">
+                <div class="category-card"><h3>Cozinha</h3></div>
+                <div class="category-card"><h3>Sala de Estar</h3></div>
+                <div class="category-card"><h3>Quarto</h3></div>
+                <div class="category-card"><h3>Banheiro</h3></div>
+                <div class="category-card"><h3>Decoração</h3></div>
+            </div>
+        </section>
+
+        <section class="container">
+            <h2 class="section-title">Produtos Populares</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1554232456-8727a6c3ff34?auto=format&fit=crop&q=60&w=500" alt="Produto 1">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <a href="produto01.html" class="product-link">
+                        <h3>Vaso Decorativo Moderno</h3>
+                        <p class="product-price">R$ 89,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                        </a>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&q=60&w=500" alt="Produto 2">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kit de Almofadas Geométricas</h3>
+                        <p class="product-price">R$ 129,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1622307583595-35392095f68b?auto=format&fit=crop&q=60&w=500" alt="Produto 3">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Luminária de Mesa Industrial</h3>
+                        <p class="product-price">R$ 199,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                 <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1593697821033-d35dd561c2b5?auto=format&fit=crop&q=60&w=500" alt="Produto 4">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Conjunto de Talheres Preto</h3>
+                        <p class="product-price">R$ 249,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=60&w=500" alt="Produto 5">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Cadeira de Jantar Eames</h3>
+                        <p class="product-price">R$ 349,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1616486338812-3dadae4b4ace?auto=format&fit=crop&q=60&w=500" alt="Produto 6">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Sofá Minimalista Cinza</h3>
+                        <p class="product-price">R$ 1.899,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?auto=format&fit=crop&q=60&w=500" alt="Produto 7">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Espelho Orgânico de Parede</h3>
+                        <p class="product-price">R$ 459,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1540932239986-30128078f3c5?auto=format&fit=crop&q=60&w=500" alt="Produto 8">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Pendente Moderno Dourado</h3>
+                        <p class="product-price">R$ 299,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mix Variedades. Todos os direitos reservados.</p>
+        <p>Rua da Decoração, 123 - Itanhaém, SP</p>
+    </footer>
+
+    <script>
+        // Adiciona funcionalidade aos botões de coração
+        document.addEventListener('DOMContentLoaded', function() {
+            const favoriteButtons = document.querySelectorAll('.favorite-btn');
+            
+            favoriteButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Adiciona ou remove a classe 'active'
+                    this.classList.toggle('active');
+                    
+                    // Altera o texto do coração (preenchido ou vazio)
+                    if (this.classList.contains('active')) {
+                        this.textContent = '♥';
+                    } else {
+                        this.textContent = '♡';
+                    }
+                });
+            });
+        });
+    </script>
+
+</body>
+</html>

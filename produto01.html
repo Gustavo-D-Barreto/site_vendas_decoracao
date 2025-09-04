@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Detalhes do Produto - Mix Variedades</title>
+    <style>
+        /* --- ESTILOS GERAIS (Copiados do index.html para consistência) --- */
+        @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Roboto:wght@400;500&display=swap');
+
+        :root {
+            --cor-vermelho: #D91A2A;
+            --cor-vermelho-escuro: #BF1736;
+            --cor-fundo: #F8EFC9;
+            --cor-texto: #1B1C17;
+        }
+
+        body {
+            font-family: 'Roboto', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--cor-fundo);
+            color: var(--cor-texto);
+        }
+
+        h1, h2, h3, h4 {
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header, .footer {
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+        }
+        
+        /* --- Cabeçalho e Rodapé (Idênticos ao index.html) --- */
+        .header { padding: 15px 0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 5px rgba(0,0,0,0.2); }
+        .navbar { display: flex; justify-content: space-between; align-items: center; max-width: 1200px; margin: 0 auto; padding: 0 20px; gap: 20px; }
+        .logo { font-family: 'Montserrat', sans-serif; font-size: 1.8em; font-weight: 700; color: var(--cor-fundo); text-decoration: none; white-space: nowrap; }
+        .logo span { color: var(--cor-vermelho); }
+        .nav-links { list-style: none; display: flex; gap: 25px; margin: 0; padding: 0; }
+        .nav-links a { color: var(--cor-fundo); text-decoration: none; font-weight: 500; transition: color 0.3s ease; }
+        .nav-links a:hover { color: var(--cor-vermelho); }
+        .search-container { display: flex; width: 100%; max-width: 400px; }
+        .search-container input { width: 100%; padding: 10px; border: 1px solid #555; border-radius: 5px 0 0 5px; background-color: #333; color: var(--cor-fundo); font-size: 1em; outline: none; }
+        .search-container button { padding: 10px 15px; border: none; background-color: var(--cor-vermelho); color: var(--cor-fundo); cursor: pointer; border-radius: 0 5px 5px 0; transition: background-color 0.3s ease; }
+        .footer { text-align: center; padding: 40px 20px; margin-top: 50px; }
+        .footer p { margin: 5px; }
+        .section-title { text-align: center; margin-top: 40px; margin-bottom: 30px; font-size: 2em; }
+
+
+        /* --- ESTILOS ESPECÍFICOS DA PÁGINA DE PRODUTO --- */
+
+        .product-page-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 40px;
+        }
+
+        .product-images {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .main-image {
+            width: 100%;
+            height: auto;
+            border-radius: 8px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .product-details h1 {
+            font-size: 2.5em;
+            margin-top: 0;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            font-size: 1.2em;
+            color: #f39c12; /* Cor de estrela */
+            margin-bottom: 20px;
+        }
+
+        .product-price-large {
+            font-size: 2.2em;
+            font-weight: 700;
+            color: var(--cor-vermelho);
+            margin-bottom: 20px;
+        }
+        
+        .product-description {
+            line-height: 1.6;
+            margin-bottom: 30px;
+        }
+        
+        .quantity-selector {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .quantity-selector label {
+            font-weight: bold;
+        }
+        
+        .quantity-selector input {
+            width: 60px;
+            padding: 8px;
+            text-align: center;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+        
+        .add-to-cart-large-btn {
+            background-color: var(--cor-vermelho);
+            color: white;
+            border: none;
+            padding: 18px 30px;
+            cursor: pointer;
+            width: 100%;
+            font-size: 1.2em;
+            font-weight: bold;
+            transition: background-color 0.3s ease;
+            border-radius: 5px;
+            margin-bottom: 30px;
+        }
+        
+        .add-to-cart-large-btn:hover {
+            background-color: var(--cor-vermelho-escuro);
+        }
+
+        .shipping-calculator, .payment-methods {
+            border: 1px solid #ddd;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .shipping-calculator h4, .payment-methods h4 {
+            margin-top: 0;
+        }
+
+        .shipping-calculator input {
+            width: calc(100% - 110px);
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px 0 0 5px;
+        }
+
+        .shipping-calculator button {
+            width: 100px;
+            padding: 10px;
+            border: none;
+            background-color: var(--cor-texto);
+            color: var(--cor-fundo);
+            cursor: pointer;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        .payment-icons img {
+            height: 25px;
+            margin-right: 10px;
+        }
+        
+        /* --- Seção de Avaliações --- */
+        .reviews-section {
+            margin-top: 60px;
+            border-top: 1px solid #ddd;
+            padding-top: 40px;
+        }
+
+        .review-card {
+            background-color: #fff;
+            border: 1px solid #eee;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .review-header h4 {
+            margin: 0;
+        }
+
+        .review-card p {
+            line-height: 1.5;
+        }
+        
+        /* --- Seção de Produtos Relacionados (reutiliza o estilo do index.html) --- */
+        .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 25px; }
+        .product-card { background-color: #fff; border: 1px solid #eee; border-radius: 8px; overflow: hidden; text-align: center; transition: box-shadow 0.3s ease; position: relative; }
+        .product-card:hover { box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+        .product-image-container { position: relative; }
+        .product-card img { width: 100%; height: 200px; object-fit: cover; display: block; }
+        .product-info { padding: 20px; }
+        .product-info h3 { margin: 10px 0; font-size: 1.2em; }
+        .product-price { font-size: 1.3em; font-weight: bold; color: var(--cor-texto); margin-bottom: 15px; }
+        .add-to-cart-btn { background-color: var(--cor-texto); color: var(--cor-fundo); border: none; padding: 12px 25px; cursor: pointer; width: 100%; font-size: 1em; font-weight: bold; transition: background-color 0.3s ease; }
+        .add-to-cart-btn:hover { background-color: var(--cor-vermelho); }
+
+
+        /* Responsividade para telas menores */
+        @media (max-width: 768px) {
+            .product-page-layout {
+                grid-template-columns: 1fr;
+            }
+            .navbar {
+                flex-direction: column;
+                gap: 15px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header class="header">
+        <nav class="navbar">
+            <a href="index.html" class="logo">Mix<span>Variedades</span></a>
+            <div class="search-container">
+                <input type="text" placeholder="Buscar produtos...">
+                <button type="submit">🔍</button>
+            </div>
+            <ul class="nav-links">
+                <li><a href="index.html">Início</a></li>
+                <li><a href="#">Produtos</a></li>
+                <li><a href="#">Sobre Nós</a></li>
+                <li><a href="#">Contato</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main class="container">
+        
+        <div class="product-page-layout">
+            <div class="product-images">
+                <img src="https://images.unsplash.com/photo-1622307583595-35392095f68b?auto=format&fit=crop&q=80&w=1287" alt="Luminária de Mesa Industrial" class="main-image">
+            </div>
+
+            <div class="product-details">
+                <h1>Luminária de Mesa Industrial</h1>
+                <div class="product-rating">
+                    <span>★★★★☆</span> (32 avaliações)
+                </div>
+                <p class="product-price-large">R$ 199,90</p>
+                <p class="product-description">
+                    Adicione um toque de estilo urbano e moderno à sua casa ou escritório com esta luminária de mesa de design industrial. Feita com materiais de alta qualidade, ela é robusta e perfeita para leitura ou para criar um ambiente aconchegante.
+                </p>
+
+                <div class="quantity-selector">
+                    <label for="quantity">Quantidade:</label>
+                    <input type="number" id="quantity" name="quantity" value="1" min="1">
+                </div>
+
+                <button class="add-to-cart-large-btn">ADICIONAR AO CARRINHO</button>
+                
+                <div class="shipping-calculator">
+                    <h4>Calcular frete e prazo</h4>
+                    <input type="text" placeholder="Digite seu CEP">
+                    <button>Calcular</button>
+                </div>
+                
+                <div class="payment-methods">
+                    <h4>Formas de Pagamento</h4>
+                    <div class="payment-icons">
+                        <img src="https://logospng.org/download/visa/logo-visa-2048.png" alt="Visa">
+                        <img src="https://logospng.org/download/mastercard/mastercard-2048.png" alt="Mastercard">
+                        <img src="https://logospng.org/download/elo/logo-elo-2048.png" alt="Elo">
+                        <img src="https://logospng.org/download/pix/logo-pix-2048.png" alt="Pix">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <section class="reviews-section">
+            <h2 class="section-title">Avaliações de Clientes</h2>
+            <div class="review-card">
+                <div class="review-header">
+                    <h4>Mariana Costa</h4>
+                    <div class="product-rating">★★★★★</div>
+                </div>
+                <p><strong>Excelente produto!</strong> - A luminária é ainda mais bonita pessoalmente. Chegou super rápido e bem embalada. Deu um charme todo especial para o meu escritório.</p>
+            </div>
+            <div class="review-card">
+                <div class="review-header">
+                    <h4>Ricardo Alves</h4>
+                    <div class="product-rating">★★★★☆</div>
+                </div>
+                <p><strong>Gostei bastante.</strong> - Produto de boa qualidade e design fiel às fotos. Só não dou 5 estrelas porque a lâmpada não veio inclusa, mas estava descrito no anúncio.</p>
+            </div>
+        </section>
+
+        <section class="related-products">
+            <h2 class="section-title">Quem viu, gostou também</h2>
+            <div class="products-grid">
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1554232456-8727a6c3ff34?auto=format&fit=crop&q=60&w=500" alt="Produto 1">
+                    <div class="product-info">
+                        <h3>Vaso Decorativo Moderno</h3>
+                        <p class="product-price">R$ 89,90</p>
+                        <button class="add-to-cart-btn">Ver Produto</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1593697821033-d35dd561c2b5?auto=format&fit=crop&q=60&w=500" alt="Produto 4">
+                    <div class="product-info">
+                        <h3>Conjunto de Talheres Preto</h3>
+                        <p class="product-price">R$ 249,90</p>
+                        <button class="add-to-cart-btn">Ver Produto</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1536987333706-fc9adfb10d91?auto=format&fit=crop&q=60&w=500" alt="Produto 7">
+                    <div class="product-info">
+                        <h3>Espelho Orgânico de Parede</h3>
+                        <p class="product-price">R$ 459,90</p>
+                        <button class="add-to-cart-btn">Ver Produto</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <img src="https://images.unsplash.com/photo-1592078615290-033ee584e267?auto=format&fit=crop&q=60&w=500" alt="Produto 5">
+                    <div class="product-info">
+                        <h3>Cadeira de Jantar Eames</h3>
+                        <p class="product-price">R$ 349,90</p>
+                        <button class="add-to-cart-btn">Ver Produto</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <footer class="footer">
+        <p>&copy; 2025 Mix Variedades. Todos os direitos reservados.</p>
+        <p>Rua da Decoração, 123 - Itanhaém, SP</p>
+    </footer>
+
+</body>
+</html>
