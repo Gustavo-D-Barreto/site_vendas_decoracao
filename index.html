@@ -11,20 +11,49 @@
         :root {
             --cor-vermelho: #D91A2A;
             --cor-vermelho-escuro: #BF1736;
-            --cor-fundo: #F8EFC9;
-            --cor-texto: #1B1C17;
+            --cor-vermelho-claro: #FF6B6B;
+            --cor-fundo: #F8F9FA;
+            --cor-fundo-secundario: #FFFFFF;
+            --cor-texto: #2D3748;
+            --cor-texto-claro: #718096;
+            --cor-borda: #E2E8F0;
+            --sombra-suave: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            --sombra-media: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+            --sombra-forte: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
         }
 
         body {
             font-family: 'Roboto', sans-serif;
             margin: 0;
             padding: 0;
-            background-color: var(--cor-fundo);
+            background: linear-gradient(135deg, var(--cor-fundo) 0%, #E8F4FD 100%);
             color: var(--cor-texto);
+            line-height: 1.6;
+            overflow-x: hidden;
         }
 
         h1, h2, h3 {
             font-family: 'Montserrat', sans-serif;
+            font-weight: 700;
+            letter-spacing: -0.025em;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(135deg, var(--cor-texto) 0%, var(--cor-vermelho) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        h2 {
+            font-size: 2.5rem;
+            color: var(--cor-texto);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            color: var(--cor-texto);
         }
 
         .container {
@@ -35,13 +64,15 @@
 
         /* --- Cabeçalho e Navegação --- */
         .header {
-            background-color: var(--cor-texto);
-            color: var(--cor-fundo);
-            padding: 15px 0;
+            background: linear-gradient(135deg, var(--cor-texto) 0%, #1A202C 100%);
+            color: var(--cor-fundo-secundario);
+            padding: 20px 0;
             position: sticky;
             top: 0;
             z-index: 1000;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+            box-shadow: var(--sombra-media);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .navbar {
@@ -56,15 +87,25 @@
 
         .logo {
             font-family: 'Montserrat', sans-serif;
-            font-size: 1.8em;
+            font-size: 2rem;
             font-weight: 700;
-            color: var(--cor-fundo);
+            color: var(--cor-fundo-secundario);
             text-decoration: none;
             white-space: nowrap;
+            transition: all 0.3s ease;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .logo:hover {
+            transform: scale(1.05);
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
         }
         
         .logo span {
-            color: var(--cor-vermelho);
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .nav-links {
@@ -76,14 +117,35 @@
         }
 
         .nav-links a {
-            color: var(--cor-fundo);
+            color: var(--cor-fundo-secundario);
             text-decoration: none;
             font-weight: 500;
-            transition: color 0.3s ease;
+            transition: all 0.3s ease;
+            padding: 8px 16px;
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .nav-links a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s ease;
+        }
+
+        .nav-links a:hover::before {
+            left: 100%;
         }
 
         .nav-links a:hover {
-            color: var(--cor-vermelho);
+            color: var(--cor-vermelho-claro);
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-2px);
         }
         
         /* --- Barra de Pesquisa --- */
@@ -95,70 +157,149 @@
         
         .search-container input {
             width: 100%;
-            padding: 10px;
-            border: 1px solid #555;
-            border-radius: 5px 0 0 5px;
-            background-color: #333;
-            color: var(--cor-fundo);
+            padding: 12px 16px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 12px 0 0 12px;
+            background: rgba(255, 255, 255, 0.1);
+            color: var(--cor-fundo-secundario);
             font-size: 1em;
             outline: none;
+            backdrop-filter: blur(10px);
+            transition: all 0.3s ease;
+        }
+
+        .search-container input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .search-container input:focus {
+            background: rgba(255, 255, 255, 0.2);
+            border-color: var(--cor-vermelho-claro);
+            box-shadow: 0 0 0 3px rgba(255, 107, 107, 0.2);
         }
         
         .search-container button {
-            padding: 10px 15px;
+            padding: 12px 20px;
             border: none;
-            background-color: var(--cor-vermelho);
-            color: var(--cor-fundo);
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            color: var(--cor-fundo-secundario);
             cursor: pointer;
-            border-radius: 0 5px 5px 0;
-            transition: background-color 0.3s ease;
+            border-radius: 0 12px 12px 0;
+            transition: all 0.3s ease;
+            font-size: 1.1em;
+            box-shadow: var(--sombra-suave);
         }
-        
+
         .search-container button:hover {
-            background-color: var(--cor-vermelho-escuro);
+            background: linear-gradient(135deg, var(--cor-vermelho-escuro) 0%, var(--cor-vermelho) 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-media);
         }
 
 
         /* --- Banner Principal (Hero) --- */
         .hero {
-            background-image: linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=1558');
+            background: linear-gradient(135deg, rgba(217, 26, 42, 0.8) 0%, rgba(191, 23, 54, 0.9) 50%, rgba(0, 0, 0, 0.7) 100%), 
+                        url('https://images.unsplash.com/photo-1586023492125-27b2c045efd7?auto=format&fit=crop&q=80&w=1558');
             background-size: cover;
             background-position: center;
-            color: #FFF; /* Texto branco puro para melhor contraste na imagem */
+            background-attachment: fixed;
+            color: #FFF;
             text-align: center;
-            padding: 100px 20px;
+            padding: 120px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, transparent 30%, rgba(255, 255, 255, 0.1) 50%, transparent 70%);
+            animation: shimmer 3s infinite;
+        }
+
+        @keyframes shimmer {
+            0% { transform: translateX(-100%); }
+            100% { transform: translateX(100%); }
         }
 
         .hero h1 {
-            font-size: 3em;
+            font-size: 4rem;
             margin-bottom: 20px;
+            text-shadow: 0 4px 8px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out;
+            position: relative;
+            z-index: 2;
         }
 
         .hero p {
-            font-size: 1.2em;
-            margin-bottom: 30px;
+            font-size: 1.4rem;
+            margin-bottom: 40px;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.5);
+            animation: fadeInUp 1s ease-out 0.2s both;
+            position: relative;
+            z-index: 2;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         .cta-button {
-            background-color: var(--cor-vermelho);
-            color: var(--cor-fundo);
-            padding: 15px 30px;
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            color: var(--cor-fundo-secundario);
+            padding: 18px 40px;
             text-decoration: none;
-            font-weight: bold;
-            border-radius: 5px;
-            transition: background-color 0.3s ease;
+            font-weight: 700;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: var(--sombra-media);
+            position: relative;
+            z-index: 2;
+            animation: fadeInUp 1s ease-out 0.4s both;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border: 2px solid transparent;
         }
 
         .cta-button:hover {
-            background-color: var(--cor-vermelho-escuro);
+            background: linear-gradient(135deg, var(--cor-vermelho-escuro) 0%, var(--cor-vermelho) 100%);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: var(--sombra-forte);
+            border-color: rgba(255, 255, 255, 0.3);
         }
         
         /* --- Seção de Categorias --- */
         .section-title {
             text-align: center;
-            margin-top: 40px;
-            margin-bottom: 30px;
-            font-size: 2em;
+            margin-top: 60px;
+            margin-bottom: 50px;
+            font-size: 2.8rem;
+            position: relative;
+            color: var(--cor-texto);
+        }
+
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 4px;
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            border-radius: 2px;
         }
 
         .categories-grid {
@@ -169,21 +310,43 @@
         }
 
         .category-card {
-            background-color: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            background: linear-gradient(135deg, var(--cor-fundo-secundario) 0%, #F8F9FA 100%);
+            padding: 30px 20px;
+            border-radius: 20px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--sombra-suave);
+            border: 1px solid var(--cor-borda);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .category-card:hover::before {
+            transform: scaleX(1);
         }
 
         .category-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--sombra-forte);
+            border-color: var(--cor-vermelho-claro);
         }
         
         .category-card h3 {
-            margin-top: 10px;
+            margin-top: 15px;
             color: var(--cor-texto);
+            font-size: 1.3rem;
+            font-weight: 600;
         }
 
         /* --- Seção de Produtos Populares --- */
@@ -194,17 +357,20 @@
         }
 
         .product-card {
-            background-color: #fff;
-            border: 1px solid #eee;
-            border-radius: 8px;
+            background: linear-gradient(135deg, var(--cor-fundo-secundario) 0%, #F8F9FA 100%);
+            border: 1px solid var(--cor-borda);
+            border-radius: 20px;
             overflow: hidden;
             text-align: center;
-            transition: box-shadow 0.3s ease;
-            position: relative; /* Necessário para posicionar o coração */
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            position: relative;
+            box-shadow: var(--sombra-suave);
         }
 
         .product-card:hover {
-            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+            transform: translateY(-8px) scale(1.02);
+            box-shadow: var(--sombra-forte);
+            border-color: var(--cor-vermelho-claro);
         }
 
         .product-image-container {
@@ -213,29 +379,52 @@
 
         .product-card img {
             width: 100%;
-            height: 200px;
+            height: 220px;
             object-fit: cover;
             display: block;
+            transition: transform 0.4s ease;
+        }
+
+        .product-card:hover img {
+            transform: scale(1.1);
         }
 
         .favorite-btn {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            background: none;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.9);
             border: none;
             font-size: 1.8em;
             cursor: pointer;
-            color: var(--cor-texto);
-            transition: color 0.3s ease, transform 0.2s ease;
+            color: var(--cor-texto-claro);
+            transition: all 0.3s ease;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(10px);
+            box-shadow: var(--sombra-suave);
         }
         
         .favorite-btn:hover {
-            transform: scale(1.1);
+            transform: scale(1.2);
+            background: rgba(255, 255, 255, 1);
+            box-shadow: var(--sombra-media);
         }
 
         .favorite-btn.active {
             color: var(--cor-vermelho);
+            background: rgba(255, 255, 255, 1);
+            animation: heartbeat 0.6s ease-in-out;
+        }
+
+        @keyframes heartbeat {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.3); }
+            100% { transform: scale(1); }
         }
 
         .product-info {
@@ -243,44 +432,119 @@
         }
 
         .product-info h3 {
-            margin: 10px 0;
-            font-size: 1.2em;
+            margin: 15px 0;
+            font-size: 1.3rem;
+            color: var(--cor-texto);
+            font-weight: 600;
         }
 
         .product-price {
-            font-size: 1.3em;
-            font-weight: bold;
-            color: var(--cor-texto);
-            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--cor-vermelho);
+            margin-bottom: 20px;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
         }
         
         .add-to-cart-btn {
-            background-color: var(--cor-texto);
-            color: var(--cor-fundo);
+            background: linear-gradient(135deg, var(--cor-texto) 0%, #1A202C 100%);
+            color: var(--cor-fundo-secundario);
             border: none;
-            padding: 12px 25px;
+            padding: 15px 25px;
             cursor: pointer;
             width: 100%;
-            font-size: 1em;
-            font-weight: bold;
-            transition: background-color 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            border-radius: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            box-shadow: var(--sombra-suave);
         }
 
         .add-to-cart-btn:hover {
-            background-color: var(--cor-vermelho);
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-media);
         }
         
         /* --- Rodapé --- */
         .footer {
-            background-color: var(--cor-texto);
-            color: var(--cor-fundo);
+            background: linear-gradient(135deg, var(--cor-texto) 0%, #1A202C 100%);
+            color: var(--cor-fundo-secundario);
             text-align: center;
-            padding: 40px 20px;
-            margin-top: 50px;
+            padding: 50px 20px;
+            margin-top: 80px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
         }
 
         .footer p {
-            margin: 5px;
+            margin: 8px 0;
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+
+        /* --- Paginação --- */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 60px 0;
+            gap: 8px;
+        }
+
+        .pagination button {
+            padding: 12px 18px;
+            border: 2px solid var(--cor-borda);
+            background: linear-gradient(135deg, var(--cor-fundo-secundario) 0%, #F8F9FA 100%);
+            color: var(--cor-texto);
+            cursor: pointer;
+            border-radius: 12px;
+            transition: all 0.3s ease;
+            font-size: 1rem;
+            font-weight: 600;
+            box-shadow: var(--sombra-suave);
+        }
+
+        .pagination button:hover {
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            color: var(--cor-fundo-secundario);
+            border-color: var(--cor-vermelho);
+            transform: translateY(-2px);
+            box-shadow: var(--sombra-media);
+        }
+
+        .pagination button.active {
+            background: linear-gradient(135deg, var(--cor-vermelho) 0%, var(--cor-vermelho-claro) 100%);
+            color: var(--cor-fundo-secundario);
+            border-color: var(--cor-vermelho);
+            box-shadow: var(--sombra-media);
+        }
+
+        .pagination button:disabled {
+            opacity: 0.4;
+            cursor: not-allowed;
+            background: #F1F5F9;
+            color: var(--cor-texto-claro);
+        }
+
+        .pagination button:disabled:hover {
+            background: #F1F5F9;
+            color: var(--cor-texto-claro);
+            border-color: var(--cor-borda);
+            transform: none;
+            box-shadow: var(--sombra-suave);
         }
 
     </style>
@@ -313,11 +577,11 @@
         <section class="container">
             <h2 class="section-title">Navegue por Categorias</h2>
             <div class="categories-grid">
+                <div class="category-card"><h3>Potes</h3></div>
+                <div class="category-card"><h3>Ferramentas</h3></div>
                 <div class="category-card"><h3>Cozinha</h3></div>
-                <div class="category-card"><h3>Sala de Estar</h3></div>
-                <div class="category-card"><h3>Quarto</h3></div>
-                <div class="category-card"><h3>Banheiro</h3></div>
                 <div class="category-card"><h3>Decoração</h3></div>
+                <div class="category-card"><h3>Papelaria</h3></div>
             </div>
         </section>
 
@@ -331,7 +595,7 @@
                     </div>
                     <div class="product-info">
                         <a href="produto01.html" class="product-link">
-                        <h3>Caneca Dia Das Maes</h3>
+                        <h3>caneca dia das maes</h3>
                         <p class="product-price">R$ 89,90</p>
                         <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
                         </a>
@@ -339,33 +603,35 @@
                 </div>
                 <div class="product-card">
                     <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1533090481720-856c6e3c1fdc?auto=format&fit=crop&q=60&w=500" alt="Produto 2">
+                        <img src="https://carrefourbr.vtexassets.com/arquivos/ids/123611575/e927df06d12d4d94abe969ca934c444c.jpg?v=638249652331030000" alt="Produto 2">
                         <button class="favorite-btn">♡</button>
                     </div>
                     <div class="product-info">
-                        <h3>Kit de Almofadas Geométricas</h3>
+                        <a href="produto02.html" class="product-link">
+                        <h3>mochila lilo stiti</h3>
                         <p class="product-price">R$ 129,90</p>
                         <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                        </a>
                     </div>
                 </div>
                 <div class="product-card">
                     <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1622307583595-35392095f68b?auto=format&fit=crop&q=60&w=500" alt="Produto 3">
+                        <img src="https://down-br.img.susercontent.com/file/br-11134207-7r98o-lty6bd683mn90e" alt="Produto 3">
                         <button class="favorite-btn">♡</button>
                     </div>
                     <div class="product-info">
-                        <h3>Luminária de Mesa Industrial</h3>
-                        <p class="product-price">R$ 199,90</p>
+                        <h3>kit tupperware</h3>
+                        <p class="product-price">R$ 79,90</p>
                         <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
                  <div class="product-card">
                     <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1593697821033-d35dd561c2b5?auto=format&fit=crop&q=60&w=500" alt="Produto 4">
+                        <img src="https://cdn.awsli.com.br/600x450/2494/2494541/produto/263125000/kit-5-o3pdbc2ytu.jpg" alt="Produto 4">
                         <button class="favorite-btn">♡</button>
                     </div>
                     <div class="product-info">
-                        <h3>Conjunto de Talheres Preto</h3>
+                        <h3>Kit ferramentas Casa Nova</h3>
                         <p class="product-price">R$ 249,90</p>
                         <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
                     </div>
@@ -414,6 +680,63 @@
                         <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
                     </div>
                 </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://cdn.awsli.com.br/2500x2500/1364/1364244/produto/206566120/kit-4-potes-de-vidro-para-mantimentos-com-tampa-de-bambu-personalizada-home-gifts-alqjfj.jpg" alt="Produto 9">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Kit de Potes de Vidro</h3>
+                        <p class="product-price">R$ 79,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://img.irroba.com.br/fit-in/800x800/filters:fill(fff):quality(80)/ritecaae/catalog/api/ritecaae_citelerp/6846bed2041b0.jpg" alt="Produto 10">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Chave de Fenda Profissional</h3>
+                        <p class="product-price">R$ 45,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://xalingo.vteximg.com.br/arquivos/ids/159094-1000-1000/1757.6---Canetinhas-para-Quadro-Branco---06-Cores.jpg?v=638235796045100000" alt="Produto 11">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Canetinhas para Quadro Branco</h3>
+                        <p class="product-price">R$ 29,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?auto=format&fit=crop&q=60&w=500" alt="Produto 12">
+                        <button class="favorite-btn">♡</button>
+                    </div>
+                    <div class="product-info">
+                        <h3>Jogo de Panelas Antiaderente</h3>
+                        <p class="product-price">R$ 189,90</p>
+                        <button class="add-to-cart-btn">Adicionar ao Carrinho</button>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Seção de Paginação -->
+        <section class="container">
+            <div class="pagination">
+                <button type="button" disabled>« Anterior</button>
+                <button type="button" class="active">1</button>
+                <button type="button">2</button>
+                <button type="button">3</button>
+                <button type="button">4</button>
+                <button type="button">5</button>
+                <button type="button">Próximo »</button>
             </div>
         </section>
     </main>
@@ -441,9 +764,50 @@
                     }
                 });
             });
+
+            // Funcionalidade da paginação
+            const paginationButtons = document.querySelectorAll('.pagination button');
+            let currentPage = 1;
+            
+            paginationButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const buttonText = this.textContent.trim();
+                    
+                    if (buttonText === '« Anterior' && currentPage > 1) {
+                        currentPage--;
+                    } else if (buttonText === 'Próximo »' && currentPage < 5) {
+                        currentPage++;
+                    } else if (!isNaN(buttonText)) {
+                        currentPage = parseInt(buttonText);
+                    }
+                    
+                    updatePagination();
+                });
+            });
+            
+            function updatePagination() {
+                // Remove classe active de todos os botões
+                paginationButtons.forEach(btn => btn.classList.remove('active'));
+                
+                // Adiciona classe active ao botão da página atual
+                paginationButtons.forEach(btn => {
+                    if (btn.textContent.trim() === currentPage.toString()) {
+                        btn.classList.add('active');
+                    }
+                });
+                
+                // Atualiza estado dos botões Anterior/Próximo
+                const prevButton = paginationButtons[0];
+                const nextButton = paginationButtons[paginationButtons.length - 1];
+                
+                prevButton.disabled = currentPage === 1;
+                nextButton.disabled = currentPage === 5;
+                
+                // Simula mudança de página (aqui você poderia carregar novos produtos)
+                console.log(`Página ${currentPage} selecionada`);
+            }
         });
     </script>
 
 </body>
-
 </html>
